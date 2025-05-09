@@ -10,7 +10,7 @@ Neste contexto surge a Pomodorganiza, a ferramenta de gerenciamento de tarefas q
 
 O modelo lógico do banco de dados foi criado com o objetivo de proporcionar melhor visualização e planejamento ao projeto que está sendo desenvolvido, proporcionando assim um planejamento objetivo em realação aos elementos (tabelas, variáveis, etc.) presentes no banco de dados do projeto.
 
-![modelo lógico](documents/imagens/modelo-logico-bd.png)
+![modelo lógico](../assets/modelo-logico-bd.png)
 Autora: Alessandra Nascimento Santos Sena
 Framework: LucidChart
 
@@ -111,7 +111,7 @@ createtable TAREFAS_USUARIO(
 ```
 Com a criação das tabelas, o modelo físico é criado e assim podemos visualizar a estrutura final do banco de dados: 
 
-![modelo-físico](documents/imagens/modelo-fisico.png)
+![modelo físico](../assets/modelo-fisico.png)
 Autora: Alessandra Nascimento Santos Sena
 Framework: Supabase
 
