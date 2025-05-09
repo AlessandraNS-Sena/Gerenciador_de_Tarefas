@@ -12,8 +12,16 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "express": "^5.1.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlessandraNS-Sena/Gerenciador_de_Tarefas.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AlessandraNS-Sena/Gerenciador_de_Tarefas/issues"
+  },
+  "homepage": "https://github.com/AlessandraNS-Sena/Gerenciador_de_Tarefas#readme",
+  "description": ""
 }
