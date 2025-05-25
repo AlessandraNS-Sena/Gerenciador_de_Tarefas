@@ -23,5 +23,6 @@
     "url": "https://github.com/AlessandraNS-Sena/Gerenciador_de_Tarefas/issues"
   },
   "homepage": "https://github.com/AlessandraNS-Sena/Gerenciador_de_Tarefas#readme",
-  "description": ""
+  "description": "O pomodorganiza é uma plataforma de gerenciamento de tarefas simples e intuitiva, que surgiu com o intuito de ajudar pessoas que possuem problema de controle organizacional de suas vidas profissionais e pessoais, precisando de uma ferramenta que facilite a sua separação de tarefas e gerenciamento de projetos.",
+  "devDependencies": {}
 }
