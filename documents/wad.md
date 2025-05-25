@@ -21,7 +21,7 @@ Após esta organização prévia, podemos enfim contruir as tabelas dentro do ba
 ``` sql
 
 
-createtable USERS(
+create table USERS(
 
   user_id SERIAL primary key,
 
@@ -35,7 +35,7 @@ createtable USERS(
 
 );
 
-createtable PROJETOS(
+create table PROJETOS(
 
   projeto_id SERIAL primary key,
 
@@ -51,7 +51,7 @@ createtable PROJETOS(
 
 );
 
-createtable TAREFAS(
+create table TAREFAS(
 
   tarefas_id serial primary key,
 
@@ -77,7 +77,7 @@ createtable TAREFAS(
 
 );
 
-createtable COMENTARIOS(
+create table COMENTARIOS(
 
   comentario_id serial primary key,
 
@@ -95,7 +95,7 @@ createtable COMENTARIOS(
 
 );
 
-createtable TAREFAS_USUARIO(
+create table TAREFAS_USUARIO(
 
   id_USER int not null,
 
