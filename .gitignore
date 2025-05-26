@@ -1,5 +1,8 @@
 .env/
 node_modules/
+<<<<<<< Updated upstream
 testUser.js/
 views/
 HomeController.js/
+=======
+>>>>>>> Stashed changes
