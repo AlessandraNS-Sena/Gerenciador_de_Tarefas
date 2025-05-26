@@ -1,9 +1,15 @@
 // controllers/tarefaController.js
 const Tarefa = require('../models/tarefa');
 
+
+//GET: listando as tarefas
 exports.getAll = async (req, res) => {
-  const tarefas = await Tarefa.getAll();
-  res.json(tarefas);
+  try {
+    const tarefas = await Tarefa.findAll();
+    res.status(200).json(tarefas);
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao listar tarefas' });
+  }
 };
 
 exports.getById = async (req, res) => {
@@ -13,38 +19,44 @@ exports.getById = async (req, res) => {
   res.json(tarefa);
 };
 
+//POST: criando uma nova tarefa
 exports.create = async (req, res) => {
   const data = req.body;
-  const newTarefa = await Tarefa.create(data);
-  res.status(201).json(newTarefa);
+
+  try {
+    const novaTarefa = await Tarefa.create(data);
+    res.status(201).json(novaTarefa);
+  } catch (error) {
+    console.error('Erro ao criar tarefa:', error);
+    res.status(500).json({ error: 'Erro ao criar tarefa' });
+  }
 };
 
+//PUT: atualizando uma tarefa com base no ID
 exports.update = async (req, res) => {
   const { id } = req.params;
   const data = req.body;
-  const updatedTarefa = await Tarefa.update(id, data);
-  if (!updatedTarefa) return res.status(404).json({ error: 'Tarefa not found' });
-  res.json(updatedTarefa);
+  try {
+    const tarefaAtualizada = await Tarefa.update(id, data);
+    if (!tarefaAtualizada) {
+      return res.status(404).json({ error: 'Tarefa não encontrada' });
+    }
+    res.status(200).json(tarefaAtualizada);
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao atualizar tarefa' });
+  }
 };
 
+//DELETE: deletando uma tarefa com base no ID 
 exports.delete = async (req, res) => {
   const { id } = req.params;
-  const success = await Tarefa.delete(id);
-  if (!success) return res.status(404).json({ error: 'Tarefa not found' });
-  res.status(204).send();
-};
-
-exports.listAll = async (req, res) => {
   try {
-    // Aqui você pode acessar filtros ou parâmetros enviados no corpo (req.body)
-    const filtros = req.body;
-
-    // Exemplo: buscar tarefas no banco (aqui você ajusta conforme seu model)
-    const tarefas = await Tarefa.findAllWithFilters(filtros); 
-
-    res.json(tarefas);
+    const success = await Tarefa.delete(id);
+    if (!success) {
+      return res.status(404).json({ error: 'Tarefa não encontrada' });
+    }
+    res.status(204).send();
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Erro ao listar tarefas' });
+    res.status(500).json({ error: 'Erro ao deletar tarefa' });
   }
 };
