@@ -33,3 +33,18 @@ exports.delete = async (req, res) => {
   if (!success) return res.status(404).json({ error: 'Tarefa not found' });
   res.status(204).send();
 };
+
+exports.listAll = async (req, res) => {
+  try {
+    // Aqui você pode acessar filtros ou parâmetros enviados no corpo (req.body)
+    const filtros = req.body;
+
+    // Exemplo: buscar tarefas no banco (aqui você ajusta conforme seu model)
+    const tarefas = await Tarefa.findAllWithFilters(filtros); 
+
+    res.json(tarefas);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Erro ao listar tarefas' });
+  }
+};
