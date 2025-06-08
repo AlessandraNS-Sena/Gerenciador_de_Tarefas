@@ -3,62 +3,57 @@
 <head>
   <meta charset="UTF-8">
   <title>Cadastro</title>
+  <link rel="stylesheet" href="/styles/cadastro.css"> <!-- caminho do CSS -->
 </head>
 <body>
-  <h1>Pomorganiza</h1>
+  <div class="container">
+    <div class="form-box">
+      <img src="/imagens/logoPomorganiza.png" alt="Logo Pomorganiza" class="logo">
 
-  <form id="CadastrodeUsuario">
-    <div>
-      <label for="nome">Nome:</label>
-      <input type="text" id="nome" name="nome_user" required>
+      <form id="CadastrodeUsuario">
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" name="nome_user" required>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email_user" required>
+
+        <label for="senha">Senha</label>
+        <input type="password" id="senha" name="senha_user" required>
+
+        <button type="submit">Acessar</button>
+      </form>
     </div>
-    
-    <div>
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email_user" required>
-    </div>
+  </div>
 
-    <div>
-      <label for="senha">Senha:</label>
-      <input type="password" id="senha" name="senha_user" required>
-    </div>
+  <script>
+    const form = document.getElementById('CadastrodeUsuario');
 
-    <button type="submit">Acessar</button>
-  </form>
-</body>
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
 
-<script>
-  const form = document.getElementById('CadastrodeUsuario');
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
 
-  form.addEventListener('submit', async (e) => {
-   e.preventDefault();
+      try {
+        const response = await fetch('/api/users/AdicionarUsuario', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
 
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries()); // Transforma FormData em objeto
-
-    try {
-      const response = await fetch('/api/users/AdicionarUsuario', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        alert('Usuário criado com sucesso!');
-        // Redirecionar para outra página, se quiser:
-        window.location.href = '/api/projetos';
-      } else {
-        const error = await response.json();
-        alert('Erro: ' + error.message);
+        if (response.ok) {
+          alert('Usuário criado com sucesso!');
+          window.location.href = '/api/projetos';
+        } else {
+          const error = await response.json();
+          alert('Erro: ' + error.message);
+        }
+      } catch (err) {
+        alert('Erro ao conectar com o servidor.');
       }
-    } catch (err) {
-      console.error('Erro de rede:', err.json());
-      alert('Erro ao conectar com o servidor.');
-    }
-  });
-</script>
+    });
+  </script>
+</body>
 </html>
-

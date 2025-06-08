@@ -12,12 +12,14 @@ class Projeto {
   }
 
   static async create(data) {
+    console.log('Dados recebidos:', data); // Isso deve imprimir os valores antes da query
+
     const result = await db.query(
       'INSERT INTO PROJETOS (nome_projeto, descricao_projeto, id_user) VALUES ($1, $2, $3) RETURNING *',
       [data.nome_projeto, data.descricao_projeto, data.id_user]
     );
     return result.rows[0];
-  }
+}
 
   static async update(id, data) {
     const result = await db.query(
