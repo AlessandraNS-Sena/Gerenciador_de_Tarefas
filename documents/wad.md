@@ -115,3 +115,10 @@ Com a criação das tabelas, o modelo físico é criado e assim podemos visualiz
 Autora: Alessandra Nascimento Santos Sena
 Framework: Supabase
 
+# Diagrama da Arquitetura MVC
+
+O diagrama da arquitetura MVC é utilizado para a comprensão e entendimento da emplementação da aplicação web de maneira simples. 
+
+![Arquitetura MVC](../assets/mvc.png)
+Autora: Alessandra Nascimento Santos Sena
+Framework: Lucidchart.com
