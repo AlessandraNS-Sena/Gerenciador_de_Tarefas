@@ -4,7 +4,7 @@ const Projeto = require('../models/projetoModels');
 exports.getAll = async (req, res) => {
   try {
     const projetos = await Projeto.getAll();
-    res.json(projetos);
+    res.render('index',{projetos});
   } catch (error) {
     console.error('Erro ao buscar projetos:', error);
     res.status(500).json({ error: 'Erro interno no servidor' });

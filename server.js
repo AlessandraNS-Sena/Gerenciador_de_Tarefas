@@ -3,7 +3,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const homeRoutes = require('./controllers/homeController');
+//const homeRoutes = require('./controllers/homeController');
 const routes = require('./routes');
 
 const app = express();
@@ -19,7 +19,7 @@ app.use(express.static('public'));
 
 // Rotas principais
 app.use('/api', routes);
-app.use('/home', homeRoutes);
+app.use('/projetos', routes)
 
 // Rota para view de cadastro (primeira visualização)
 app.get('/', (req, res) => {
