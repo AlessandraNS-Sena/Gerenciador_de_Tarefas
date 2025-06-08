@@ -1,5 +1,5 @@
 // controllers/userController.js
-const User = require('../models/user');
+const User = require('../models/UserModels');
 
 exports.getAll = async (req, res) => {
   const users = await User.getAll();

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title><%= tarefa ? 'Editar' : 'Nova' %> Tarefa</title>
+</head>
+<body>
+  <h1><%= tarefa ? 'Editar' : 'Nova' %> Tarefa</h1>
+  <form action="<%= tarefa ? '/tarefas/' + tarefa.id + '?_method=PUT' : '/tarefas' %>" method="POST">
+    <label for="titulo">Título:</label>
+    <input type="text" id="titulo" name="titulo" value="<%= tarefa ? tarefa.titulo : '' %>" required><br><br>
+
+    <label for="descricao">Descrição:</label><br>
+    <textarea id="descricao" name="descricao" rows="4" cols="50"><%= tarefa ? tarefa.descricao : '' %></textarea><br><br>
+
+    <label for="status">Status:</label>
+    <select name="status" id="status">
+      <option value="pendente" <%= tarefa && tarefa.status === 'pendente' ? 'selected' : '' %>>Pendente</option>
+      <option value="em andamento" <%= tarefa && tarefa.status === 'em andamento' ? 'selected' : '' %>>Em Andamento</option>
+      <option value="concluída" <%= tarefa && tarefa.status === 'concluída' ? 'selected' : '' %>>Concluída</option>
+    </select><br><br>
+
+    <button type="submit"><%= tarefa ? 'Atualizar' : 'Criar' %> Tarefa</button>
+  </form>
+
+  <br>
+  <a href="/tarefas">⬅️ Voltar</a>
+</body>
+</html>

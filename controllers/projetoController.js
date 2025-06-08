@@ -1,9 +1,14 @@
 // controllers/projetoController.js
-const Projeto = require('../models/projeto');
+const Projeto = require('../models/projetoModels');
 
 exports.getAll = async (req, res) => {
-  const projetos = await Projeto.getAll();
-  res.json(projetos);
+  try {
+    const projetos = await Projeto.getAll();
+    res.json(projetos);
+  } catch (error) {
+    console.error('Erro ao buscar projetos:', error);
+    res.status(500).json({ error: 'Erro interno no servidor' });
+  }
 };
 
 exports.getById = async (req, res) => {

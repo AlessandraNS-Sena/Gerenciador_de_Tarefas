@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>POMODORGANIZA</title>
+</head>
+<body>
+  <h1>Projetos</h1>
+  <div style="text-align: center;">
+    <a href="/projetos/Projeto.ejs">➕ Novo projeto</a>
+  </div>
+<table border = 1>
+    <thead>
+      <tr>
+        <th>Nome projeto</th>
+        <th>Descrição</th>
+      </tr>
+    </thead>
+    <tbody>
+  <% if (projetos.length === 0) { %>
+    <tr>
+      <td colspan="2" style="text-align: center;">Nenhum projeto encontrado.</td>
+    </tr>
+  <% } else { %>
+    <% projetos.forEach(p => { %>
+      <tr>
+        <td><%= p.nome_projeto %></td>
+        <td><%= p.descricao_projeto %></td>
+        <td>
+          <a href="/projeto/<%= p.projeto_id %>/editar">✏️ Editar</a>
+          <a href="/projeto/<%= p.projeto_id %>/deletar">🗑️ Excluir</a>
+        </td>
+      </tr>
+    <% }) %>
+  <% } %>
+</tbody>
+</table>
+</body>
+</html>

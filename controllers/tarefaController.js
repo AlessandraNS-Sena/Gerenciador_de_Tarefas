@@ -1,5 +1,5 @@
 // controllers/tarefaController.js
-const Tarefa = require('../models/tarefa');
+const Tarefa = require('../models/tarefaModels');
 
 
 //GET: listando as tarefas

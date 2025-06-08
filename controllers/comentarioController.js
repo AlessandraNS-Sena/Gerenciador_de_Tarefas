@@ -1,5 +1,5 @@
 // controllers/comentarioController.js
-const Comentario = require('../models/comentario');
+const Comentario = require('../models/comentarioModels');
 
 exports.getAll = async (req, res) => {
   const comentarios = await Comentario.getAll();

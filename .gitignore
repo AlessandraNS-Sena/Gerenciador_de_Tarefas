@@ -1,5 +1,4 @@
-.env/
-node_modules/
-testUser.js/
-views/
-HomeController.js/
+.env
+node_modules
+testUser.js
+package-lock.json

@@ -9,12 +9,12 @@ const isSSL = process.env.DB_SSL === 'true';
 
 // Cria um novo pool de conexões com o banco de dados PostgreSQL, usando as variáveis do .env
 const pool = new Pool({
-  user: process.env.DB_USER,             // Usuário do banco
-  host: process.env.DB_HOST,             // Host do banco (ex: localhost ou URL remota)
-  database: process.env.DB_DATABASE,     // Nome do banco de dados
-  password: process.env.DB_PASSWORD,     // Senha do usuário
-  port: process.env.DB_PORT,             // Porta de conexão (geralmente 5432)
-  
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,            
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,     
+  database: process.env.DB_DATABASE,     
+    
   // Se SSL estiver ativado, usa SSL sem verificação de certificado. Caso contrário, desativa SSL.
   ssl: isSSL ? { rejectUnauthorized: false } : false,
 });

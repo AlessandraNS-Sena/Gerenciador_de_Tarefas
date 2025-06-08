@@ -12,9 +12,5 @@ router.use('/projetos', projetosRoutes);
 router.use('/tarefas', tarefasRoutes);
 router.use('/comentarios', comentariosRoutes);
 
-router.get('/', (req, res) => {
-  res.send('Olá!');
-});
-
 module.exports = router;
 
