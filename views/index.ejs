@@ -1,38 +1,118 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-  <title>POMODORGANIZA</title>
+  <meta charset="UTF-8">
+  <title>POMODORGANIZA - Projetos</title>
+  <link rel="stylesheet" href="/styles/projetos.css">
 </head>
 <body>
-  <h1>Projetos</h1>
-  <div style="text-align: center;">
-    <a href="/projetos/Projeto.ejs">➕ Novo projeto</a>
+
+  <header>
+    <img src="/imagens/logoPomorganiza.png" alt="Logo Pomorganiza" class="logo">
+    <a href="/perfil">
+      <img src="/imagens/icone-perfil.png" alt="Perfil" class="icone-perfil">
+    </a>
+  </header>
+
+  <main>
+    <h1>Projetos</h1>
+
+    <div class="projetos-container">
+      <!-- Botão de novo projeto estilo card com "+" -->
+      <div class="card-novo-projeto" id="btnNovoProjeto">+</div>
+
+      <!-- Lista de projetos existentes -->
+      <% if (projetos.length > 0) { %>
+        <% projetos.forEach(p => { %>
+          <div class="card-projeto">
+            <h3><%= p.nome_projeto %></h3>
+            <p><%= p.descricao_projeto %></p>
+            <div class="acoes">
+              <a href="/projeto/<%= p.projeto_id %>/editar" class="editar">✏️</a>
+              <a href="/projeto/<%= p.projeto_id %>/deletar" class="excluir">🗑️</a>
+            </div>
+          </div>
+        <% }) %>
+      <% } %>
+    </div>
+  </main>
+
+  <footer>
+    Em caso de dúvidas nos contate: equipePomorganiza@gmail.com
+  </footer>
+
+  <!-- Modal -->
+  <div id="modalProjeto" class="modal">
+    <div class="modal-content">
+      <span class="close" id="fecharModal">&times;</span>
+      <h2>Novo Projeto</h2>
+      <form id="CriarProjeto">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome_projeto" required>
+
+        <label for="descricao">Descrição:</label>
+        <textarea id="descricao" name="descricao_projeto" required></textarea>
+
+        <button type="submit">Salvar</button>
+      </form>
+    </div>
   </div>
-<table border = 1>
-    <thead>
-      <tr>
-        <th>Nome projeto</th>
-        <th>Descrição</th>
-      </tr>
-    </thead>
-    <tbody>
-  <% if (projetos.length === 0) { %>
-    <tr>
-      <td colspan="2" style="text-align: center;">Nenhum projeto encontrado.</td>
-    </tr>
-  <% } else { %>
-    <% projetos.forEach(p => { %>
-      <tr>
-        <td><%= p.nome_projeto %></td>
-        <td><%= p.descricao_projeto %></td>
-        <td>
-          <a href="/projeto/<%= p.projeto_id %>/editar">✏️ Editar</a>
-          <a href="/projeto/<%= p.projeto_id %>/deletar">🗑️ Excluir</a>
-        </td>
-      </tr>
-    <% }) %>
-  <% } %>
-</tbody>
-</table>
+
+  <script>
+    const form = document.getElementById('CriarProjeto');
+
+    form.addEventListener('submit', async (e) => { e.preventDefault();
+
+  const formData = new FormData(form);
+  const data = Object.fromEntries(formData.entries());
+
+  // try {
+  //   const response = await fetch('/api/projetos/NovoProjeto', {
+  //     method: 'POST',
+  //     headers: { 'Content-Type': 'application/json' },
+  //     body: JSON.stringify(data)
+  //   });
+
+  //   if (response.ok) {
+  //     const novoProjeto = await response.json();
+
+  //     // Criando um novo card dinamicamente
+  //     const projetoContainer = document.querySelector('.projetos-container');
+  //     const novoCard = document.createElement('div');
+  //     novoCard.className = 'card-projeto';
+  //     novoCard.innerHTML = `
+  //       <h3>${novoProjeto.nome_projeto}</h3>
+  //       <p>${novoProjeto.descricao_projeto}</p>
+  //       <div class="acoes">
+  //         <a href="/projetos/${novoProjeto.projeto_id}/editar" class="editar">✏️</a>
+  //         <a href="/projetos/${novoProjeto.projeto_id}/deletar" class="excluir">🗑️</a>
+  //       </div>
+  //     `;
+
+  //     projetoContainer.appendChild(novoCard);
+  //     document.getElementById('modalProjeto').style.display = 'none';
+  //   } else {
+  //     alert('Erro ao criar o projeto.');
+  //   }
+  // } catch (err) {
+  //   alert('Erro ao conectar com o servidor.');
+  // }
+});
+  
+    document.getElementById('btnNovoProjeto').onclick = function () {
+      document.getElementById('modalProjeto').style.display = 'flex';
+    };
+
+    document.getElementById('fecharModal').onclick = function () {
+      document.getElementById('modalProjeto').style.display = 'none';
+    };
+
+    window.onclick = function (event) {
+      const modal = document.getElementById('modalProjeto');
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    };
+  </script>
 </body>
 </html>

@@ -15,6 +15,7 @@ exports.getById = async (req, res) => {
 
 exports.create = async (req, res) => {
   const data = req.body;
+  console.log(req.body);
   const newUser = await User.create(data);
   res.status(201).json(newUser);
 };

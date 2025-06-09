@@ -12,12 +12,13 @@ class User {
   }
 
   static async create(data) {
-    const result = await db.query(
-      'INSERT INTO USERS (nome_user, email_user, senha_user) VALUES ($1, $2, $3) RETURNING *',
-      [data.nome_user, data.email_user, data.senha_user]
-    );
-    return result.rows[0];
-  }
+  console.log("Dados recebidos:", data); // Verifique se os dados estão corretos
+  const result = await db.query(
+    'INSERT INTO USERS (nome_user, email_user, senha_user) VALUES ($1, $2, $3) RETURNING *',
+    [data.nome_user, data.email_user, data.senha_user]
+  );
+  return result.rows[0];
+}
 
   static async update(id, data) {
     const result = await db.query(

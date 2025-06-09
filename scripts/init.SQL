@@ -1,11 +1,10 @@
---CRIANDO TABELA SOBRE A CONDICIONAL "SE NÃO EXISTE" 
-create table IF NOT EXISTS USERS(
+create table if not exists USERS(
 
   user_id SERIAL primary key,
 
   nome_user text not null,
 
-  email_user text unique not null,
+  email_user text not null,
 
   senha_user varchar(8) not null,
 
@@ -13,9 +12,7 @@ create table IF NOT EXISTS USERS(
 
 );
 
-
---CRIANDO TABELA SOBRE A CONDICIONAL "SE NÃO EXISTE" 
-create table IF NOT EXISTS PROJETOS(
+create table if not exists PROJETOS(
 
   projeto_id SERIAL primary key,
 
@@ -31,8 +28,7 @@ create table IF NOT EXISTS PROJETOS(
 
 );
 
---CRIANDO TABELA SOBRE A CONDICIONAL "SE NÃO EXISTE" 
-create table IF NOT EXISTS TAREFAS(
+create table if not exists TAREFAS(
 
   tarefas_id serial primary key,
 
@@ -58,27 +54,7 @@ create table IF NOT EXISTS TAREFAS(
 
 );
 
---CRIANDO TABELA SOBRE A CONDICIONAL "SE NÃO EXISTE" 
-create table IF NOT EXISTS COMENTARIOS(
-
-  comentario_id serial primary key,
-
-  conteudo text not null,
-
-  id_tarefa int not null,
-
-  id_USER int not null,
-
-  constraint fk_tarefa foreign key (id_tarefa)references TAREFAS(tarefas_id),
-
-  constraint fk_user foreign key (id_USER)references USERS(user_id),
-
-  data_criacao_comentario timestamp default current_timestamp
-
-);
-
---CRIANDO TABELA SOBRE A CONDICIONAL "SE NÃO EXISTE" 
-create table IF NOT EXISTS TAREFAS_USUARIO(
+create table if not exists TAREFAS_USUARIO(
 
   id_USER int not null,
 
