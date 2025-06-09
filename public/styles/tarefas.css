@@ -1,0 +1,66 @@
+:root {
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Caveat', cursive;
+  margin: 0;
+  padding: 0;
+  background-color: white;
+}
+
+header {
+  background-color: #BCC07B;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 3rem;
+}
+
+main {
+  padding: 2rem 3rem;
+}
+
+.titulo-projeto {
+  font-size: 2rem;
+  margin: 0 0 0.5rem 0;
+}
+
+.subtitulo {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.tarefas-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.card-tarefa {
+  width: 15rem;
+  height: 15rem;
+  font-size: 6rem;
+  background-color: #D19197;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.2rem 0.2rem rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  text-align: center;
+  line-height: 15rem;
+}
+
+footer {
+  background-color: #D3343C;
+  color: white;
+  text-align: center;
+  padding: 1.2rem;
+  font-size: 1.1rem;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}

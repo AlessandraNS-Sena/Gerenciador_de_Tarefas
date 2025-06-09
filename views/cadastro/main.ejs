@@ -35,7 +35,7 @@
       const data = Object.fromEntries(formData.entries());
 
       try {
-        const response = await fetch('/api/users/AdicionarUsuario', {
+        const response = await fetch('/users/create', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
