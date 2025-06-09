@@ -26,6 +26,12 @@ db.connect().then(() => {
   const userRoutes = require("./routes/users");
   app.use("/users", userRoutes);
 
+  const projetosRoutes = require("./routes/projetos");
+  app.use("/projects", projetosRoutes);
+
+  const tarefasRoutes = require("./routes/tarefas");
+  app.use("/tasks", tarefasRoutes);
+
   const frontendRoutes = require('./routes/frontRoutes');
     app.use('/', frontendRoutes);
   

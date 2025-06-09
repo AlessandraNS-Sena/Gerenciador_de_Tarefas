@@ -1,8 +1,8 @@
 const db = require('../config/database');
 
 class Projeto {
-  static async getAll() {
-    const result = await db.query('SELECT * FROM PROJETOS');
+  static async getAll(id) {
+    const result = await db.query('SELECT * FROM PROJETOS WHERE id_user = $1', [id]);
     return result.rows;
   }
 

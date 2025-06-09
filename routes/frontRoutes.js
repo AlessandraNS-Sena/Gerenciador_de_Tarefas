@@ -9,10 +9,9 @@ router.get('/', (req, res) => {
   });
 });
 
-router.get('/about', (req, res) => {
-  res.render(path.join(__dirname, '../views/layout/main'), {
+router.get('/projetos', (req, res) => {
+  res.render(path.join(__dirname, '../views/main'), {
     pageTitle: 'Página Inicial',
-    content: path.join(__dirname, '../views/pages/page2')
   });
 });
 

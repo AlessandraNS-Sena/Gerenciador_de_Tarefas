@@ -5,8 +5,9 @@ const User = require('../models/UserModels');
 
 exports.getAll = async (req, res) => {
   try {
-    const projetos = await Projeto.getAll();
-    res.render('index',{projetos});
+    const userId = req.params.userId; // <- corrigido aqui
+    const projetos = await Projeto.getAll(userId);
+    res.status(200).json(projetos);
   } catch (error) {
     console.error('Erro ao buscar projetos:', error);
     res.status(500).json({ error: 'Erro interno no servidor' });
@@ -15,13 +16,12 @@ exports.getAll = async (req, res) => {
 
 exports.create = async (req, res) => {
   try {
-    const userId = req.session.user_id; // Obtendo o ID do usuário da sessão
+    const userId = req.body.user_id; // Obtendo o ID do usuário da sessão
     if (!userId) {
       return res.status(401).json({ error: "Usuário não autenticado" });
     }
 
-    const data = { ...req.body, id_user: userId }; // Associando o ID do usuário ao projeto
-    const newProjeto = await Projeto.create(data);
+    const newProjeto = await Projeto.create(req.body);
     
     res.status(201).json(newProjeto);
   } catch (error) {
