@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/styles/tarefas.css">
+</head>
+<body>
+
+  <header>
+    <img src="/imagens/logoPomorganiza.png" alt="Logo Pomorganiza" class="logo">
+  </header>
+
+  <main>
+    <h1 class="titulo-projeto"><%= projeto.nome_projeto %></h1>
+    <h3 class="subtitulo">Tarefas</h3>
+    <div class="tarefas-container">
+      <button id="btnNovaTarefa" class="card-tarefa">+</button>
+    </div>
+  </main>
+
+  <footer>
+    <p>Em caso de dúvidas nos contate: equipePomorganiza@gmail.com</p>
+  </footer>
+
+
+  <!-- Modal -->
+<div id="modalTarefa" class="modal">
+  <div class="modal-content">
+    <span class="close" id="fecharModal">&times;</span>
+    <h2>Nova Tarefa</h2>
+    <form id="CriarTarefa">
+      <!-- Título -->
+      <label for="titulo_tarefa">Título:</label>
+      <input type="text" id="titulo_tarefa" name="titulo_tarefa" required />
+
+      <!-- Descrição -->
+      <label for="descricao_tarefa">Descrição:</label>
+      <textarea id="descricao_tarefa" name="descricao_tarefa" required></textarea>
+
+      <!-- Status -->
+      <label for="status_tarefa">Status:</label>
+      <select id="status_tarefa" name="status_tarefa" required>
+        <option value="pendente" selected>Pendente</option>
+        <option value="em andamento">Em andamento</option>
+        <option value="concluído">Concluído</option>
+      </select>
+
+      <!-- Prioridade -->
+      <label for="prioridade_tarefa">Prioridade:</label>
+      <select id="prioridade_tarefa" name="prioridade_tarefa" required>
+        <option value="baixa" selected>Baixa</option>
+        <option value="media">Média</option>
+        <option value="alta">Alta</option>
+      </select>
+
+      <!-- Data de vencimento -->
+      <label for="data_vencimento">Data de Vencimento:</label>
+      <input type="date" id="data_vencimento" name="data_vencimento" required />
+
+      <!-- ID do Projeto -->
+      <input type="hidden" id="projeto_id" name="projeto_id" />
+
+      <!-- ID do Usuário -->
+      <input type="hidden" id="id_USER" name="id_USER" />
+
+      <button type="submit">Salvar</button>
+    </form>
+  </div>
+</div>
+
+<script>
+const form = document.getElementById("CriarTarefa");
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  // Definir userId e projetoId aqui dentro
+  const userId = localStorage.getItem("userId");
+  const projetoId = localStorage.getItem("projetoId");
+
+  if (!userId || !projetoId) {
+    alert("Usuário ou projeto não identificado.");
+    return;
+  }
+
+  const formData = new FormData(form);
+  const data = Object.fromEntries(formData.entries());
+  data.id_USER = userId;
+  data.projeto_id = projetoId;
+
+  try {
+    const response = await fetch("/tarefas/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (response.ok) {
+      const novaTarefa = await response.json();
+
+      // Aqui você pode adicionar a nova tarefa à lista da página
+      alert("Tarefa criada com sucesso!");
+
+      document.getElementById("modalTarefa").style.display = "none";
+      form.reset();
+
+      // Recarregar a lista para mostrar a nova tarefa
+      carregarTarefasDoProjeto();
+    } else {
+      alert("Erro ao criar a tarefa.");
+    }
+  } catch (err) {
+    alert("Erro ao conectar com o servidor.");
+    console.error(err);
+  }
+});
+
+// Abrir modal
+document.getElementById("btnNovaTarefa").onclick = function () {
+  document.getElementById("modalTarefa").style.display = "flex";
+};
+
+// Fechar modal
+document.getElementById("fecharModal").onclick = function () {
+  document.getElementById("modalTarefa").style.display = "none";
+};
+
+// Fechar modal ao clicar fora
+window.onclick = function (event) {
+  const modal = document.getElementById("modalTarefa");
+  if (event.target === modal) {
+    modal.style.display = "none";
+  }
+};
+
+async function carregarTarefasDoProjeto() {
+  const userId = localStorage.getItem("userId");
+  const projetoId = localStorage.getItem("projetoId");
+
+  if (!userId || !projetoId) {
+    console.warn("Usuário ou projeto não identificados.");
+    return;
+  }
+
+  try {
+    const response = await fetch(`/tarefas/${userId}/${projetoId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      const tarefas = await response.json();
+      const container = document.getElementById("containerTarefas");
+
+      // Limpa o container antes de adicionar as tarefas
+      container.innerHTML = "";
+
+      tarefas.forEach((t) => {
+        const card = document.createElement("div");
+        card.className = "card-tarefa";
+        card.innerHTML = `
+          <h4>${t.titulo_tarefa}</h4>
+          <p>${t.descricao_tarefa}</p>
+          <p>Status: ${t.status_tarefa}</p>
+          <p>Prioridade: ${t.prioridade_tarefa}</p>
+          <p>Vencimento: ${new Date(t.data_vencimento).toLocaleDateString()}</p>
+        `;
+
+        container.appendChild(card);
+      });
+    } else {
+      console.error("Erro ao buscar tarefas:", response.status);
+    }
+  } catch (error) {
+    console.error("Erro ao conectar com o servidor:", error);
+  }
+}
+
+// Chamar a função ao carregar a página
+window.addEventListener("DOMContentLoaded", carregarTarefasDoProjeto);
+
+</script>
+</body>
+</html>

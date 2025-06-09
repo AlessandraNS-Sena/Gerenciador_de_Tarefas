@@ -18,16 +18,14 @@ Como pode ser visto neste modelo lógico do Pomodorganiza, foram criadas 5 tabel
 
 Após esta organização prévia, podemos enfim contruir as tabelas dentro do banco de dados, nos baseando no que foi planejado ao realizar o modelo lógico. A prática desta nova criação é o modelo físico do nosso banco, que ao ser finalizado se mostra da seguinte forma:
 
-``` sql
-
-
-create table USERS(
+```sql
+create table if not exists USERS(
 
   user_id SERIAL primary key,
 
   nome_user text not null,
 
-  email_user text unique not null,
+  email_user text not null,
 
   senha_user varchar(8) not null,
 
@@ -35,7 +33,7 @@ create table USERS(
 
 );
 
-create table PROJETOS(
+create table if not exists PROJETOS(
 
   projeto_id SERIAL primary key,
 
@@ -51,7 +49,7 @@ create table PROJETOS(
 
 );
 
-create table TAREFAS(
+create table if not exists TAREFAS(
 
   tarefas_id serial primary key,
 
@@ -63,11 +61,11 @@ create table TAREFAS(
 
   prioridade_tarefa text check(prioridade_tarefa in('baixa','media','alta'))default'baixa',
 
-  data_vencimento date notnull,
+  data_vencimento date not null,
 
-  projeto_id int notnull,
+  projeto_id int not null,
 
-  id_USER int notnull,
+  id_USER int not null,
 
   data_criacao_tarefa timestamp default current_timestamp,
 
@@ -77,25 +75,7 @@ create table TAREFAS(
 
 );
 
-create table COMENTARIOS(
-
-  comentario_id serial primary key,
-
-  conteudo text not null,
-
-  id_tarefa int not null,
-
-  id_USER int not null,
-
-  constraint fk_tarefa foreign key (id_tarefa)references TAREFAS(tarefas_id),
-
-  constraint fk_user foreign key (id_USER)references USERS(user_id),
-
-  data_criacao_comentario timestamp default current_timestamp
-
-);
-
-create table TAREFAS_USUARIO(
+create table if not exists TAREFAS_USUARIO(
 
   id_USER int not null,
 
@@ -109,7 +89,8 @@ create table TAREFAS_USUARIO(
 
 );
 ```
-Com a criação das tabelas, o modelo físico é criado e assim podemos visualizar a estrutura final do banco de dados: 
+
+Com a criação das tabelas, o modelo físico é criado e assim podemos visualizar a estrutura final do banco de dados:
 
 ![modelo físico](../assets/modelo-fisico.png)
 Autora: Alessandra Nascimento Santos Sena
@@ -117,8 +98,42 @@ Framework: Supabase
 
 # Diagrama da Arquitetura MVC
 
-O diagrama da arquitetura MVC é utilizado para a comprensão e entendimento da emplementação da aplicação web de maneira simples. 
+O diagrama da arquitetura MVC é utilizado para a comprensão e entendimento da emplementação da aplicação web de maneira simples.
 
 ![Arquitetura MVC](../assets/mvc.png)
 Autora: Alessandra Nascimento Santos Sena
 Framework: Lucidchart.com
+
+# Visualização das views implementadas
+
+Conforme a realização da aplicação do projeto, as views deverão seguir a seguinte sequência: 
+
+### Tela de login
+
+![Tela de Cadastro](../assets/TelaLogin.png)
+Autora: Alessandra Nascimento Santos Sena
+
+### Tela Home
+
+![Tela Home](../assets/TelaHome.png)
+Autora: Alessandra Nascimento Santos Sena
+
+### Tela Criar Projeto
+
+![Adicionar Projeto](../assets/AdicionarProjeto.png)
+Autora: Alessandra Nascimento Santos Sena
+
+### Tela com o Projeto
+
+![Novo Projeto](../assets/NovoProjeto.png)
+Autora: Alessandra Nascimento Santos Sena
+
+### Tela de Tarefas
+
+![Tarefas](../assets/Tarefa.png)
+Autora: Alessandra Nascimento Santos Sena
+
+### Tela Adicionar Tarefa
+
+![Nova Tarefa](../assets/AdicionarTarefa.png)
+Autora: Alessandra Nascimento Santos Sena

@@ -64,7 +64,7 @@
 
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
-        data.user_id = userId; // Envia também o ID do usuário
+        data.user_id = userId;
 
         try {
           const response = await fetch("/projects/create", {
@@ -78,21 +78,25 @@
           if (response.ok) {
             const novoProjeto = await response.json();
 
-            // Adiciona o novo projeto dinamicamente
             const container = document.getElementById("containerProjetos");
             const novoCard = document.createElement("div");
             novoCard.className = "card-projeto";
             novoCard.innerHTML = `
-              <h3>${novoProjeto.nome_projeto}</h3>
-              <p>${novoProjeto.descricao_projeto}</p>
-              <div class="acoes">
-                <a href="/projeto/${novoProjeto.projeto_id}/editar" class="editar">✏️</a>
-                <a href="/projeto/${novoProjeto.projeto_id}/deletar" class="excluir">🗑️</a>
-              </div>
-            `;
+          <h3>${novoProjeto.nome_projeto}</h3>
+          <p>${novoProjeto.descricao_projeto}</p>
+          <div class="acoes">
+            <a href="/projeto/${novoProjeto.projeto_id}/editar" class="editar" onclick="event.stopPropagation()">✏️</a>
+            <a href="/projeto/${novoProjeto.projeto_id}/deletar" class="excluir" onclick="event.stopPropagation()">🗑️</a>
+          </div>
+        `;
+
+            // Redireciona ao clicar no card
+            novoCard.onclick = () => {
+              window.location.href = `/projeto/${novoProjeto.projeto_id}/tarefas`;
+            };
+
             container.appendChild(novoCard);
 
-            // Fecha o modal
             document.getElementById("modalProjeto").style.display = "none";
             form.reset();
           } else {
@@ -142,13 +146,19 @@
               const card = document.createElement("div");
               card.className = "card-projeto";
               card.innerHTML = `
-                <h3>${p.nome_projeto}</h3>
-                <p>${p.descricao_projeto}</p>
-                <div class="acoes">
-                  <a href="/projeto/${p.projeto_id}/editar" class="editar">✏️</a>
-                  <a href="/projeto/${p.projeto_id}/deletar" class="excluir">🗑️</a>
-                </div>
-              `;
+            <h3>${p.nome_projeto}</h3>
+            <p>${p.descricao_projeto}</p>
+            <div class="acoes">
+              <a href="/projeto/${p.projeto_id}/editar" class="editar" onclick="event.stopPropagation()">✏️</a>
+              <a href="/projeto/${p.projeto_id}/deletar" class="excluir" onclick="event.stopPropagation()">🗑️</a>
+            </div>
+          `;
+
+              // Redireciona ao clicar no card
+              card.onclick = () => {
+                window.location.href = `/projeto/${p.projeto_id}/tarefas`;
+              };
+
               container.appendChild(card);
             });
           } else {
